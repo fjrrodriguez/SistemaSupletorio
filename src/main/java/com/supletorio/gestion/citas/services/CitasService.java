@@ -2,24 +2,26 @@ package com.supletorio.gestion.citas.services;
 
 import com.supletorio.gestion.citas.dto.CitaDto;
 import com.supletorio.gestion.citas.dto.HorarioDisponibilidadDto;
+import com.supletorio.gestion.citas.dto.RespuestaHttpDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class CitasService implements ICitasService {
+
     @Override
-    public String establecerHorarioDoctor(HorarioDisponibilidadDto horario) {
+    public RespuestaHttpDto establecerHorarioDoctor(HorarioDisponibilidadDto horario) {
         return null;
     }
 
     @Override
-    public String agendarCitaMedica(CitaDto cita) {
+    public RespuestaHttpDto agendarCitaMedica(CitaDto cita) {
         return null;
     }
 
     @Override
-    public String actualizarEstadoCita(CitaDto cita, Integer idCita) {
+    public RespuestaHttpDto actualizarEstadoCita(CitaDto cita, Integer idCita) {
         return null;
     }
 
@@ -28,4 +30,3 @@ public class CitasService implements ICitasService {
         return null;
     }
 }
-
