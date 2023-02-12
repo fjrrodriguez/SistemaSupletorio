@@ -2,6 +2,7 @@ package com.supletorio.gestion.citas.services;
 
 import com.supletorio.gestion.citas.dto.MedicoDto;
 import com.supletorio.gestion.citas.dto.PacienteDto;
+import com.supletorio.gestion.citas.dto.RespuestaHttpDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 @Service
 public class PersonasService implements IPersonasService {
     @Override
-    public String crearPaciente(PacienteDto paciente) {
+    public RespuestaHttpDto crearPaciente(PacienteDto paciente) {
         return null;
     }
 
@@ -24,13 +25,12 @@ public class PersonasService implements IPersonasService {
     }
 
     @Override
-    public String actualizarPaciente(PacienteDto paciente, Integer id) {
+    public RespuestaHttpDto actualizarPaciente(PacienteDto paciente, Integer id) {
         return null;
     }
 
     @Override
-    public String eliminarPaciente(Integer id) {
+    public RespuestaHttpDto eliminarPaciente(Integer id) {
         return null;
     }
 }
-
