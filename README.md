@@ -6,3 +6,5 @@
 #### Medico: Extiende de la clase datos personales.
 #### Paciente: extiende de la clase datos personales.
 #### Tipo de cita: id, nombre.
+### Se manejo la estructura por capas escencialmente controller, service, repository.
+### Se implementa herencia, polimorfismo y se incluyen interfaces como ICitaRepository, IPersonaRepository, entre otras.
