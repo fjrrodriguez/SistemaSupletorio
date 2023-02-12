@@ -18,3 +18,4 @@
 ####  Listar horario medico: localhost:8080/api/citas/consultar-horario-medico/2
 #### Agendar cita medica : localhost:8080/api/citas/agendar-cita-medica
 #### Consultar el historial medico por paiente: localhost:8080/api/citas/listar-historial-medico-paciente/1
+### Patrones de diseño aplicados: Strategy - Singleton
