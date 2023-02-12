@@ -89,7 +89,7 @@ public class CitasController {
             // en caso contrario si el paciente si tiene historial medico retornamos el historial de el
             return new ResponseEntity<List<CitaDto>>(historialMedico, HttpStatus.OK);
         }
-        // En el caso de que el empleado no exista retornamos mensaje de error...
+        // En el caso de que el empleado no exista retornamos mensaje de error....
         return new ResponseEntity<String>(PACIENTE_NO_ENCONTRADO, HttpStatus.NOT_FOUND);
     }
 }
