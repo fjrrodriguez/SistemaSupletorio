@@ -27,7 +27,7 @@ public class CitasService implements ICitasService {
 
     @Override
     public RespuestaHttpDto agendarCitaMedica(CitaDto cita) {
-        return null;
+        return citasRepository.agendarCitaMedica(cita);
     }
 
     @Override
@@ -37,7 +37,8 @@ public class CitasService implements ICitasService {
 
     @Override
     public List<CitaDto> listarHistorialMedicoPaciente(Integer pacienteId) {
-        return null;
+        return citasRepository.listarHistorialMedicoPaciente(pacienteId);
     }
 }
+
 

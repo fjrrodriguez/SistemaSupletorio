@@ -1,9 +1,6 @@
 package com.supletorio.gestion.citas.controllers;
 
-import com.supletorio.gestion.citas.dto.CitaDto;
-import com.supletorio.gestion.citas.dto.HorarioDisponibilidadDto;
-import com.supletorio.gestion.citas.dto.MedicoDto;
-import com.supletorio.gestion.citas.dto.RespuestaHttpDto;
+import com.supletorio.gestion.citas.dto.*;
 import com.supletorio.gestion.citas.services.ICitasService;
 import com.supletorio.gestion.citas.services.IPersonasService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +19,8 @@ public class CitasController {
     public static String ERROR_HORARIO_MEDICO = "El medico con ese ID no tiene ningun horario disponible";
 
     public static String MEDICO_NO_EXISTE = "El medico con ese ID no existe en el sistema";
+
+    public static String PACIENTE_NO_ENCONTRADO = "El paciente con ese ID no se encuentra registrado en el sistema";
 
     @Autowired
     private ICitasService citasService;
@@ -73,13 +72,24 @@ public class CitasController {
 
     @GetMapping("/listar-historial-medico-paciente/{pacienteId}")
     ResponseEntity<?> listarHistorialMedicoPaciente(@PathVariable Integer pacienteId) {
-        List<CitaDto> historialMedico = citasService.listarHistorialMedicoPaciente(pacienteId);
-        // Si el paciante NO tiene historial medico retornamos el mensaje de error
-        if (historialMedico == null || historialMedico.size() == 0) {
-            return new ResponseEntity<String>(HISTORIAL_MEDICO_NO_DISPONIBLE, HttpStatus.NOT_FOUND);
+        // Validamos si el paciante existe....
+        PacienteDto pacienteTemp = personasService.obtenerPacientes()
+                .stream()
+                .filter(p -> p.getId().equals(pacienteId))
+                .findFirst()
+                .orElse(null);
+
+        // Si existe el paciente existe retornamos el historial o si no posee historial medico en el sistema
+        if (pacienteTemp != null) {
+            List<CitaDto> historialMedico = citasService.listarHistorialMedicoPaciente(pacienteId);
+            // Si el paciante NO tiene historial medico retornamos el mensaje de error
+            if (historialMedico == null || historialMedico.size() == 0) {
+                return new ResponseEntity<String>(HISTORIAL_MEDICO_NO_DISPONIBLE, HttpStatus.NOT_FOUND);
+            }
+            // en caso contrario si el paciente si tiene historial medico retornamos el historial de el
+            return new ResponseEntity<List<CitaDto>>(historialMedico, HttpStatus.OK);
         }
-        // en caso contrario si el paciente si tiene historial medico retornamos el historial de el
-        return new ResponseEntity<List<CitaDto>>(historialMedico, HttpStatus.OK);
+        // En el caso de que el empleado no exista retornamos mensaje de error...
+        return new ResponseEntity<String>(PACIENTE_NO_ENCONTRADO, HttpStatus.NOT_FOUND);
     }
 }
-

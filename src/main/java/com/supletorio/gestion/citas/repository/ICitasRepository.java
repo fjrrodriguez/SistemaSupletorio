@@ -12,5 +12,7 @@ public interface ICitasRepository {
     public List<HorarioDisponibilidadDto> consultarHorarioMedico(Integer idMedico);
 
     public RespuestaHttpDto agendarCitaMedica(CitaDto cita);
+
+    public List<CitaDto> listarHistorialMedicoPaciente(Integer pacienteId);
 }
 

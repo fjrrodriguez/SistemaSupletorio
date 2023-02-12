@@ -91,4 +91,12 @@ public class CitasRepository implements ICitasRepository {
         this.listadoCitas.add(cita);
         return respuesta;
     }
+
+    @Override
+    public List<CitaDto> listarHistorialMedicoPaciente(Integer pacienteId) {
+        List<CitaDto> listaCitasPaciente = this.listadoCitas.stream()
+                .filter(pac -> pac.getPaciente().getId().equals(pacienteId))
+                .collect(Collectors.toList());
+        return listaCitasPaciente;
+    }
 }
