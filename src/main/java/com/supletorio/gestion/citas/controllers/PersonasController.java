@@ -18,16 +18,19 @@ public class PersonasController {
         return null;
     }
 
+    @GetMapping("/listar-medicos")
+    public ResponseEntity<?> obtenerMedicos() {
+        return null;
+    }
+
     @PutMapping("/actualizar-paciente/{id}")
-    public ResponseEntity<?> actualizarPaciente(@RequestBody PacienteDto paciente, @PathVariable Long id) {
+    public ResponseEntity<?> actualizarPaciente(@RequestBody PacienteDto paciente, @PathVariable Integer id) {
         return null;
     }
 
     @DeleteMapping("/eliminar-paciente/{id}")
-    public ResponseEntity<?> eliminarPaciente(@PathVariable Long id) {
+    public ResponseEntity<?> eliminarPaciente(@PathVariable Integer id) {
         return null;
     }
 
-
 }
-
