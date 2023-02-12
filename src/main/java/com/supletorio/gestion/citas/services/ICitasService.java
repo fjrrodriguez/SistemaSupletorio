@@ -7,7 +7,9 @@ import com.supletorio.gestion.citas.dto.RespuestaHttpDto;
 import java.util.List;
 
 public interface ICitasService {
-    public RespuestaHttpDto establecerHorarioDoctor(HorarioDisponibilidadDto horario);
+    public RespuestaHttpDto establecerHorarioMedico(HorarioDisponibilidadDto horario);
+
+    public List<HorarioDisponibilidadDto> consultarHorarioMedico(Integer idMedico);
 
     public RespuestaHttpDto agendarCitaMedica(CitaDto cita);
 

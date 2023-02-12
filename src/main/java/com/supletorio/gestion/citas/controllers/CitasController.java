@@ -2,8 +2,10 @@ package com.supletorio.gestion.citas.controllers;
 
 import com.supletorio.gestion.citas.dto.CitaDto;
 import com.supletorio.gestion.citas.dto.HorarioDisponibilidadDto;
+import com.supletorio.gestion.citas.dto.MedicoDto;
 import com.supletorio.gestion.citas.dto.RespuestaHttpDto;
-import com.supletorio.gestion.citas.services.CitasService;
+import com.supletorio.gestion.citas.services.ICitasService;
+import com.supletorio.gestion.citas.services.IPersonasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,13 +19,44 @@ public class CitasController {
 
     public static String HISTORIAL_MEDICO_NO_DISPONIBLE = "El paciente no tiene historial medico";
 
-    @Autowired
-    private CitasService citasService;
+    public static String ERROR_HORARIO_MEDICO = "El medico con ese ID no tiene ningun horario disponible";
 
-    @PostMapping("/establecer-horario-doctor")
-    ResponseEntity<?> establecerHorarioDoctor(@RequestBody HorarioDisponibilidadDto horario) {
-        RespuestaHttpDto respuesta = citasService.establecerHorarioDoctor(horario);
+    public static String MEDICO_NO_EXISTE = "El medico con ese ID no existe en el sistema";
+
+    @Autowired
+    private ICitasService citasService;
+
+    @Autowired
+    private IPersonasService personasService;
+
+    @PostMapping("/establecer-horario-medico")
+    ResponseEntity<?> establecerHorarioMedico(@RequestBody HorarioDisponibilidadDto horario) {
+        RespuestaHttpDto respuesta = citasService.establecerHorarioMedico(horario);
         return new ResponseEntity<String>(respuesta.getMensaje(), respuesta.getEstadoHttp());
+    }
+
+    @GetMapping("/consultar-horario-medico/{idMedico}")
+    ResponseEntity<?> consultarHorarioMedico(@PathVariable Integer idMedico) {
+        // Se consulta el listado de medicos disponibles
+        List<MedicoDto> listaMedicos = personasService.obtenerMedicos();
+
+        // Se valida si existe un medico con ese ID
+        MedicoDto medicoTemp = listaMedicos
+                .stream()
+                .filter(value -> value.getId().equals(idMedico))
+                .findAny()
+                .orElse(null);
+
+        // Si existe un medico con ese ID se retornara la lista o el mensaje que no tiene horario disponible
+        if (medicoTemp != null) {
+            List<HorarioDisponibilidadDto> horarioDisponibilidadMedico = citasService.consultarHorarioMedico(idMedico);
+            if (horarioDisponibilidadMedico == null || horarioDisponibilidadMedico.size() == 0) {
+                return new ResponseEntity<String>(ERROR_HORARIO_MEDICO, HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<List<HorarioDisponibilidadDto>>(horarioDisponibilidadMedico, HttpStatus.OK);
+        }
+        // en caso de que el id del medico que pasa el usuairo NO existe retornamos mensaje de error...
+        return new ResponseEntity<String>(MEDICO_NO_EXISTE, HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/agendar-cita-medica")
@@ -49,3 +82,4 @@ public class CitasController {
         return new ResponseEntity<List<CitaDto>>(historialMedico, HttpStatus.OK);
     }
 }
+
