@@ -23,6 +23,12 @@ public class CitasRepository implements ICitasRepository {
     public static String CITA_REGISTRADA_CON_EXITO = "Cita registrada con exito";
     public static String FRANJA_NO_DISPONIBLE = "La franja ya se encuentra ocupada o no se puede repetir ese ID de horario";
 
+    public static String CITA_ACTUALIZADA_CON_EXITO = "La cita se ha actualizado con exito ";
+
+    public static String CITA_NO_ENCONTRADA = "La cita con ese ID no se encuentra registrada en el sistema...";
+
+    public static String OCURRIO_ERROR_INESPERADO = "Ocurrio un error inesperado, comuniquese con el administrador";
+
     private Set<HorarioDisponibilidadDto> horarioDisponibilidadMedicos;
 
     private List<CitaDto> listadoCitas;
@@ -94,9 +100,38 @@ public class CitasRepository implements ICitasRepository {
 
     @Override
     public List<CitaDto> listarHistorialMedicoPaciente(Integer pacienteId) {
-        List<CitaDto> listaCitasPaciente = this.listadoCitas.stream()
-                .filter(pac -> pac.getPaciente().getId().equals(pacienteId))
-                .collect(Collectors.toList());
+        List<CitaDto> listaCitasPaciente = this.listadoCitas.stream().filter(pac -> pac.getPaciente().getId().equals(pacienteId)).collect(Collectors.toList());
         return listaCitasPaciente;
+    }
+
+    @Override
+    public RespuestaHttpDto actualizarEstadoCita(Integer idCita, String estadoCita) {
+        RespuestaHttpDto respuesta = new RespuestaHttpDto();
+        try {
+            // Se verifica la informacion de la cita en la lista
+            CitaDto citaTemp = this.listadoCitas.stream().filter(c -> c.getId().equals(idCita)).findAny().orElse(null);
+
+            // Si existe la cita se cambiara el estado
+            if (citaTemp != null) {
+                this.listadoCitas.stream().filter(c -> c.getId().equals(idCita)).forEach(c -> {
+                    if (estadoCita.equals("Cancelada")) {
+                        c.setEstado("Disponible");
+                    } else {
+                        c.setEstado(estadoCita);
+                    }
+                });
+                respuesta.setEstadoHttp(HttpStatus.OK);
+                respuesta.setMensaje(CITA_ACTUALIZADA_CON_EXITO);
+            } else {
+                // En el caso de que no se encuentre una cita con ese ID se retornara un mensaje de error...
+                respuesta.setMensaje(CITA_NO_ENCONTRADA);
+                respuesta.setEstadoHttp(HttpStatus.NOT_FOUND);
+            }
+
+        } catch (Exception ex) {
+            respuesta.setMensaje(OCURRIO_ERROR_INESPERADO);
+            respuesta.setEstadoHttp(HttpStatus.BAD_REQUEST);
+        }
+        return respuesta;
     }
 }

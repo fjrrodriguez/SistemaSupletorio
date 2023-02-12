@@ -31,8 +31,8 @@ public class CitasService implements ICitasService {
     }
 
     @Override
-    public RespuestaHttpDto actualizarEstadoCita(CitaDto cita, Integer idCita) {
-        return null;
+    public RespuestaHttpDto actualizarEstadoCita(Integer idCita, String estadoCita) {
+        return citasRepository.actualizarEstadoCita(idCita, estadoCita);
     }
 
     @Override
@@ -40,5 +40,6 @@ public class CitasService implements ICitasService {
         return citasRepository.listarHistorialMedicoPaciente(pacienteId);
     }
 }
+
 
 

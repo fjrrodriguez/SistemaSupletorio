@@ -14,5 +14,7 @@ public interface ICitasRepository {
     public RespuestaHttpDto agendarCitaMedica(CitaDto cita);
 
     public List<CitaDto> listarHistorialMedicoPaciente(Integer pacienteId);
+
+    public RespuestaHttpDto actualizarEstadoCita(Integer idCita, String estadoCita);
 }
 

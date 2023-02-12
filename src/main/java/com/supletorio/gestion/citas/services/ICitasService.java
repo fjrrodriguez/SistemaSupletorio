@@ -13,7 +13,7 @@ public interface ICitasService {
 
     public RespuestaHttpDto agendarCitaMedica(CitaDto cita);
 
-    public RespuestaHttpDto actualizarEstadoCita(CitaDto cita, Integer idCita);
+    public RespuestaHttpDto actualizarEstadoCita(Integer idCita, String estadoCita);
 
     public List<CitaDto> listarHistorialMedicoPaciente(Integer pacienteId);
 }

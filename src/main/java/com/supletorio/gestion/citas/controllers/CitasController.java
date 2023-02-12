@@ -64,9 +64,9 @@ public class CitasController {
         return new ResponseEntity<String>(respuesta.getMensaje(), respuesta.getEstadoHttp());
     }
 
-    @PutMapping("/actualizar-estado-cita/{idCita}")
-    ResponseEntity<?> actualizarEstadoCita(@RequestBody CitaDto cita, @PathVariable Integer idCita) {
-        RespuestaHttpDto respuesta = citasService.actualizarEstadoCita(cita, idCita);
+    @PutMapping("/actualizar-estado-cita/{idCita}/estado/{estadoCita}")
+    ResponseEntity<?> actualizarEstadoCita(@PathVariable Integer idCita, @PathVariable String estadoCita) {
+        RespuestaHttpDto respuesta = citasService.actualizarEstadoCita(idCita, estadoCita);
         return new ResponseEntity<String>(respuesta.getMensaje(), respuesta.getEstadoHttp());
     }
 
@@ -89,7 +89,8 @@ public class CitasController {
             // en caso contrario si el paciente si tiene historial medico retornamos el historial de el
             return new ResponseEntity<List<CitaDto>>(historialMedico, HttpStatus.OK);
         }
-        // En el caso de que el empleado no exista retornamos mensaje de error....
+        // En el caso de que el empleado no exista retornamos mensaje de error...
         return new ResponseEntity<String>(PACIENTE_NO_ENCONTRADO, HttpStatus.NOT_FOUND);
     }
 }
+
