@@ -8,3 +8,13 @@
 #### Tipo de cita: id, nombre.
 ### Se manejo la estructura por capas escencialmente controller, service, repository.
 ### Se implementa herencia, polimorfismo y se incluyen interfaces como ICitaRepository, IPersonaRepository, entre otras.
+###  Para la ejecucion del programa utilizaremos las siguientes lineas de comando en postman:
+#### Crear paciente: localhost:8080/api/personas/crear-paciente
+#### Listar paciente: localhost:8080/api/personas/listar-pacientes
+####  Actualiza datos del paciente: localhost:8080/api/personas/actualizar-paciente
+#### Eliminar paciente: localhost:8080/api/personas/eliminar-paciente/4
+#### Listar medicos: localhost:8080/api/personas/listar-medicos
+####  Establecer horario medico: localhost:8080/api/citas/establecer-horario-medico
+####  Listar horario medico: localhost:8080/api/citas/consultar-horario-medico/2
+#### Agendar cita medica : localhost:8080/api/citas/agendar-cita-medica
+#### Consultar el historial medico por paiente: localhost:8080/api/citas/listar-historial-medico-paciente/1
