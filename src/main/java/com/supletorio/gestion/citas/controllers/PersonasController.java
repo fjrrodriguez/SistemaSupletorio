@@ -45,9 +45,9 @@ public class PersonasController {
         return new ResponseEntity<List<MedicoDto>>(medicosDisponibles, HttpStatus.OK);
     }
 
-    @PutMapping("/actualizar-paciente/{id}")
-    public ResponseEntity<?> actualizarPaciente(@RequestBody PacienteDto paciente, @PathVariable Integer id) {
-        RespuestaHttpDto respuesta = personasService.actualizarPaciente(paciente, id);
+    @PutMapping("/actualizar-paciente")
+    public ResponseEntity<?> actualizarPaciente(@RequestBody PacienteDto paciente) {
+        RespuestaHttpDto respuesta = personasService.actualizarPaciente(paciente);
         return new ResponseEntity<String>(respuesta.getMensaje(), respuesta.getEstadoHttp());
     }
 
