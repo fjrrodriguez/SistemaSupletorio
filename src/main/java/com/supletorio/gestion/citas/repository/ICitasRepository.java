@@ -1,5 +1,6 @@
 package com.supletorio.gestion.citas.repository;
 
+import com.supletorio.gestion.citas.dto.CitaDto;
 import com.supletorio.gestion.citas.dto.HorarioDisponibilidadDto;
 import com.supletorio.gestion.citas.dto.RespuestaHttpDto;
 
@@ -9,5 +10,7 @@ public interface ICitasRepository {
     public RespuestaHttpDto establecerHorarioMedico(HorarioDisponibilidadDto horario);
 
     public List<HorarioDisponibilidadDto> consultarHorarioMedico(Integer idMedico);
+
+    public RespuestaHttpDto agendarCitaMedica(CitaDto cita);
 }
 
