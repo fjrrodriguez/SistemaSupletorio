@@ -1,5 +1,7 @@
 package com.supletorio.gestion.citas.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -8,10 +10,13 @@ public class HorarioDisponibilidadDto {
 
     private MedicoDto medico;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate fecha;
 
+    @JsonFormat(pattern = "HH:mm")
     private LocalTime horaInicio;
 
+    @JsonFormat(pattern = "HH:mm")
     private LocalTime horaFinal;
 
     public HorarioDisponibilidadDto() {
@@ -65,4 +70,5 @@ public class HorarioDisponibilidadDto {
         this.horaFinal = horaFinal;
     }
 }
+
 
